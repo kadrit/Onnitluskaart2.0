@@ -1,0 +1,18 @@
+﻿laps;sõber;naine;Käes on hommik imeline!/Hüüame koos Sinu nime,/kallis sünnipäevalaps,/kasva veelgi kaunimaks!
+laps;sõber;mees;Sünnipäev on tulnud taas/palju õnne, rõõmuraas!/Hoia ikka püsti pea,/ole tubli, tark ja hea!
+täiskasvanu;sõber;mees;Nagu see sügis,/nii mööduvad aastad,/nendes päikesepaistet ja tuult./Olgu Su päevades päikesekulda,/olgu neis tervist ja rõõmugi suurt!
+täiskasvanu;sõber;naine;Päikese valgust eneses kanna,/soojust teistele edasi anna./Lillede ilust naeratus võta,/rõõmsalt elus edasi tõtta!
+täiskasvanu;kolleeg;mees;Uusi teadmisi/ja teadmistest uut./Aktiivset loomist/ja loovat aktiivsust./Tee tööd mõnuga/ja rõõmu tööst/ning veel hästi palju õnne.
+täiskasvanu;sõber;mees;Et täituksid alati kõik Sinu soovid,/et läheks Sul korda, mis iganes proovid,/et saatus peaks Sinu eest helgelt hoolt!/Need soovid on Sinule meie poolt.
+täiskasvanu;kolleeg;naine;Inimene ise loob päevade ilu/hommiku, koidu ja valguse./Töökus loob elule mõtte ja sisu,/ikka rõõmukuu ja õnnevalguse!
+laps;sõber;mees;Jälle aasta teinud ringi,/nüüd on sõbrad ümber kringli,/sünnipäevaks trilli-tralli,/rõõmsat meelt ja palju lilli.
+laps;sõber;mees;Tipa-tapa aasta kõnnib,/kõnnib pikaks väiksed põnnid./Palju õnne, mängulusti,/mingu kõik sul ikka hästi.
+laps;sõber;naine;Las puhkeb roos ja särab päike/on elu nii muretu/kui oled veel väike.
+täiskasvanu;sõber;mees;Õnn on nagu õhk -/mida ei näe ega kuule,/aga selle sees on hea olla.
+täiskasvanu;sõber;naine;Õnn on nagu õhk -/mida ei näe ega kuule,/aga selle sees on hea olla
+täiskasvanu;sõber;naine;Säravaid silmi ja õuetäis lilli!
+täiskasvanu;sõber;mees;Et täituksid alati kõik Sinu soovid,/et läheks Sul korda, mis iganes proovid,/et saatus peaks Sinu eest helgelt hoolt!/Need soovid on Sinule meie poolt.
+täiskasvanu;sõber;naine;Et täituksid alati kõik Sinu soovid,/et läheks Sul korda, mis iganes proovid,/et saatus peaks Sinu eest helgelt hoolt!/Need soovid on Sinule meie poolt.
+täiskasvanu;sõber;naine;Õnn ei asu mägede taga/ega kaugete merede randadel/Ta öösiti Su padja all magab,/ja päeviti kõnnib Su kandadel.
+täiskasvanu;sõber;naine;Seisata korraks ja kohe Sa näed,/et oled ilusal aastate mäel,/millelt võid silmata elutee algust/ja ka aimata edasist kaugust!/Olgu see kaugus hästi pikk,/tervist täis ja õnnelik!
+täiskasvanu;sõber;mees;Hommikul, kui avad akna,/tervitab Sind tuulehoog./Oled jälle aasta vanem,/meie poolt Sul õnnesoov.
