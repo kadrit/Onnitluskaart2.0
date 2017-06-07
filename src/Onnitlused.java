@@ -2,8 +2,10 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Random;
 
-//see on klass failist luuletuste sisselugemiseks. Praegu paneb kõik read failist Onnitlused isendisse onnitlused
+//see on klass failist luuletuste sisselugemiseks. Klassi Onnitlused isendisse onnitlused pannakse ainult need read,
+//mis vastavad kasutaja sisestatud tingimustele.
 
 public class Onnitlused {
 
@@ -29,9 +31,9 @@ public class Onnitlused {
         this.failistluuletus = failistluuletus;
     }
 
-    static ArrayList<Onnitlused> list = new ArrayList<>(); //list failist sisse loetud onnitluste isendite hoidmiseks
+    static ArrayList<Onnitlused> list = new ArrayList<>(); //list failist sisse loetud onnitluste isendite hoidmiseks, mis vastavad kasutajate tingimustele
 
-    public static void salvestaLuuletus(String failinimi) throws Exception {
+    public static void salvestaLuuletus(String failinimi, Onnitlus onnitlus1) throws Exception {
         BufferedReader loetudRead = new BufferedReader(new InputStreamReader(new FileInputStream(failinimi), "UTF-8"));
         String rida;
         String[] reaTükid;
@@ -40,15 +42,32 @@ public class Onnitlused {
             reaTükid = rida.split(";");
 
             Onnitlused onnitlused = new Onnitlused(reaTükid[0], reaTükid[1], reaTükid[2], reaTükid[3]);
-
-            list.add(onnitlused);
-            System.out.println(onnitlused);
+            if (onnitlused.failistvanus.equals(onnitlus1.getVanus()) && onnitlused.failistkolleegSober.equals(onnitlus1.getKolleegSober()) && onnitlused.failistsugu.equals(onnitlus1.getSugu())) {
+                list.add(onnitlused);
+            }
+            //System.out.println(onnitlused);
         }
+        //System.out.println(list);
     }
 
-    //siia peaks tulema meetod mis valib juhusliku Onnitlus isendile sobivad luuletuse Onnitluste listist.
-    public void leiasobivLuuletus() {
-
+    // meetod, mis valib juhusliku Onnitlus isendile sobivad luuletuse Onnitluste listist.
+    public static String leiasobivLuuletus(Onnitlus onnitlus1) {
+        //Juhusliku arvu leidmine, mille alusel valitakse luuletuste listist välja juhuslik luuletus
+        Random r = new Random();
+        int a = r.nextInt(list.size());
+        //Juhusliku luuletuse leidmine juhuslikku arvu kasutades:
+        Onnitlused valitudLuuletuseKirje = list.get(a);
+        String valitudLuuletus = valitudLuuletuseKirje.failistluuletus;
+        return valitudLuuletus;
     }
 
+    //luuletuse pikkuse(ridades) leidmine, et saaks õnnitluse luuletuse alla kirjutada õigesse kohta
+    public static int luuletusePikkus(Onnitlus onnitlus1) {
+        String[] luuleread = leiasobivLuuletus(onnitlus1).split("/");
+        int pikkus = 0;
+        for (int i = 0; i < luuleread.length; i++) {
+        }
+        pikkus += 1;
+        return pikkus;
+    }
 }

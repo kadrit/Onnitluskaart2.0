@@ -15,8 +15,25 @@ public class Onnitlus {
 
     }
 
+    public String getNimi() {
+        return nimi;
+    }
 
+    public String getVanus() {
+        return vanus;
+    }
 
+    public String getKolleegSober() {
+        return kolleegSober;
+    }
+
+    public String getSugu() {
+        return sugu;
+    }
+
+    public String getOnnitleja() {
+        return onnitleja;
+    }
 
     @Override
     public String toString() {

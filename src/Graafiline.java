@@ -1,12 +1,15 @@
 
 
+
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -21,10 +24,8 @@ public class Graafiline extends Application {
 
     public static void main(String[] args)  throws Exception{
         launch(args);
-
-        Onnitlused.salvestaLuuletus("katse.txt");  //katsetamiseks, kas loeb failist kõik read sisse. Loeb, teeb hunniku isendeid konstruktoriga klassist Onnitlused
-        // hakkab tööle alles pärast seda kui aken on kinni pandud
     }
+
 
     @Override
     public void start(Stage primaryStage)  {
@@ -71,8 +72,14 @@ public class Graafiline extends Application {
 
 
         //Laps/täiskasvanu
-        TextField taiskasvanuvoilaps = new TextField();
-        taiskasvanuvoilaps.setPromptText("laps või täiskasvanu");
+        final ChoiceBox <String> taiskasvanuvoilaps= new ChoiceBox();
+        taiskasvanuvoilaps.setItems(FXCollections.observableArrayList(
+                "laps",
+                "täiskasvanu"
+        ));
+        //TextField taiskasvanuvoilaps = new TextField();
+        //taiskasvanuvoilaps.setPromptText("laps või täiskasvanu");
+        taiskasvanuvoilaps.getSelectionModel().selectFirst();
         GridPane.setConstraints(taiskasvanuvoilaps, 0, 6);
         grid.getChildren().add(taiskasvanuvoilaps);
 
@@ -84,8 +91,15 @@ public class Graafiline extends Application {
         grid.getChildren().add(vanusekast);
 
         //Kolleeg/sõber
-        final TextField kolleeg = new TextField();
-        kolleeg.setPromptText("sõber või kolleeg");
+
+        final ChoiceBox <String> kolleeg= new ChoiceBox();
+        kolleeg.setItems(FXCollections.observableArrayList(
+                "sõber",
+                "kolleeg"
+        ));
+        kolleeg.getSelectionModel().selectFirst();
+        //final TextField kolleeg = new TextField();
+        //kolleeg.setPromptText("sõber või kolleeg");
         GridPane.setConstraints(kolleeg, 0, 8);
         grid.getChildren().add(kolleeg);
 
@@ -104,8 +118,12 @@ public class Graafiline extends Application {
 
 
         //Naine või mees
-        final TextField meesvoinaine = new TextField();
-        meesvoinaine.setPromptText("naine või mees");
+        final ChoiceBox <String> meesvoinaine= new ChoiceBox();
+        meesvoinaine.setItems(FXCollections.observableArrayList(
+                "mees",
+                "naine"
+        ));
+        meesvoinaine.getSelectionModel().selectFirst();
         GridPane.setConstraints(meesvoinaine, 0, 10);
         grid.getChildren().add(meesvoinaine);
 
@@ -146,24 +164,83 @@ public class Graafiline extends Application {
             public void handle(ActionEvent event) {
                 String onnitleja = String.valueOf(onnitlejad.getText());
                 String nimi = String.valueOf(name.getText());
-                String vanus = String.valueOf(taiskasvanuvoilaps.getText());
-                String kolleegSober = String.valueOf(kolleeg.getText());
-                String sugu = String.valueOf(meesvoinaine.getText());
-
-
-//selliselt saab kätte küll ühe sisestuse parameetrid, aga kuidas seda kasutada väljaspool seda klassi ja isegi väljaspool seda meetodit?
-                Onnitlus onnitlus = new Onnitlus (nimi, vanus, kolleegSober, sugu, onnitleja);
-                System.out.println(onnitlus); //katsetamiseks, kas muutujad on väärtustatud
-                if (
-                        (nimi != null && !nimi.isEmpty())  //siia saab erindi teha?
-                        ) {
-                    label.setText(onnitlejad.getText() + ", "
-                            + "Aitäh!");
-                } else {
-                    label.setText("Sa ei sisestanud midagi!");
+                //String vanus = String.valueOf(taiskasvanuvoilaps.getText());
+                String vanus = taiskasvanuvoilaps.getValue().toString();
+                String kolleegSober = kolleeg.getValue().toString();
+                if (vanus.equals("laps")) {         //kui laps, siis on sõber.
+                    kolleegSober = "sõber";
                 }
+                String sugu = meesvoinaine.getValue().toString();
+                //String kolleegSober = String.valueOf(kolleeg.getText());
+                // String sugu = String.valueOf(meesvoinaine.getText());
 
-            }
+                if(onnitleja.isEmpty() || nimi.isEmpty() ){
+                    label.setText("Te ei sisestanud kõiki andmeid!");
+                } else{
+
+
+                    //selliselt saab kätte ühe sisestuse parameetrid
+                    Onnitlus onnitlus1 = new Onnitlus(nimi, vanus, kolleegSober, sugu, onnitleja);
+                    //System.out.println(onnitlus1); //katsetamiseks, kas muutujad on väärtustatud
+
+                    try {
+                        Onnitlused.salvestaLuuletus("katse.txt", onnitlus1);  //loeb failist kõik read sisse.
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    String luuletus = Onnitlused.leiasobivLuuletus(onnitlus1); // leiab luuletuse
+
+                    //väli pöördumiseks
+                    String pöördumine = new String();
+                    if (kolleegSober.equals("sõber")) {
+                        pöördumine = "Kallis ";
+                    } else {
+                        pöördumine = "Hea ";
+                    }
+                    final Label onnitletav = new Label();
+                    GridPane.setConstraints(onnitletav, 2, 10);
+                    GridPane.setColumnSpan(onnitletav, 2);
+                    onnitletav.setText(pöördumine + onnitlus1.getNimi() + "!");
+                    onnitletav.setFont(Font.font("Gambria", 12));
+                    grid2.getChildren().add(onnitletav);
+
+
+                    //väli luuletuse ekraanile kuvamise jaoks
+                    final Label luuletusekoht = new Label();
+                    GridPane.setConstraints(luuletusekoht, 2, 11);
+                    GridPane.setColumnSpan(luuletusekoht, 2);
+                    luuletusekoht.setText(luuletus.replace("/", "\n"));
+                    luuletusekoht.setFont(Font.font("Gambria", 12));
+                    grid2.getChildren().add(luuletusekoht);
+
+                    //väli lõpetuseks
+                    final Label lopetus = new Label();
+                    GridPane.setConstraints(lopetus, 2, 11 + Onnitlused.luuletusePikkus(onnitlus1));
+                    GridPane.setColumnSpan(lopetus, 2);
+                    lopetus.setText("Palju õnne!" + "\n" + onnitlus1.getOnnitleja());
+                    lopetus.setFont(Font.font("Gambria", 12));
+                    grid2.getChildren().add(lopetus);
+
+
+//Luuletuse faili saatmise nupp
+                    final Button toFail = new Button("Saada luuletus faili");
+                    GridPane.setConstraints(toFail, 2, 30);
+                    grid2.getChildren().add(toFail);
+
+                    toFail.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            FailiSalvestamine.salvestaFaili(luuletus.replace("/", "\n")); //replace selleks, et failis oleks ka iga rida omal real
+                        }});
+
+// sisestajale aitäh ütlemise koht
+
+
+                    label.setText(onnitlus1.getOnnitleja() + ", "
+                            + "aitäh, et kasutasid meie luuletusevalijat!");
+                }
+                }
         });
 
 //määrab, mida teeb nupp Puhasta
@@ -172,9 +249,23 @@ public class Graafiline extends Application {
             @Override
             public void handle(ActionEvent e) {
                 name.clear();
-                taiskasvanuvoilaps.clear();
-                kolleeg.clear();
-                meesvoinaine.clear();
+                //taiskasvanuvoilaps.clear();
+                //taiskasvanuvoilaps.getItems().clear();
+                taiskasvanuvoilaps.setItems(FXCollections.observableArrayList(
+                        "laps",
+                        "täiskasvanu"
+                ));
+                kolleeg.setItems(FXCollections.observableArrayList(
+                        "kolleeg",
+                        "sõber"
+                ));
+                meesvoinaine.setItems(FXCollections.observableArrayList(
+                        "mees",
+                        "naine"
+                ));
+
+                //kolleeg.clear();
+                //meesvoinaine.clear();
                 onnitlejad.clear();
                 label.setText(null);
             }});
@@ -187,13 +278,7 @@ public class Graafiline extends Application {
         labelsissejuhatus.setFont(Font.font("Gambria", 12));
         grid.getChildren().add(labelsissejuhatus);
 
-//väli luuletuse ekraanile kuvamise jaoks
-        final Label luuletusekoht = new Label();
-        GridPane.setConstraints(luuletusekoht, 2, 10);
-        GridPane.setColumnSpan(luuletusekoht, 2);
-        luuletusekoht.setText("Siia tuleb luuletus");
-        luuletusekoht.setFont(Font.font("Gambria", 12));
-        grid2.getChildren().add(luuletusekoht);
+
 
 //aknale nimepanemine
         Scene stseen = new Scene(piiriPaan, 1000, 700, Color.BLANCHEDALMOND); //BorderPane ehk juur on asetatud stseeni
