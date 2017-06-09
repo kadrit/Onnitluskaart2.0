@@ -48,6 +48,7 @@ public class Onnitlused {
             //System.out.println(onnitlused);
         }
         //System.out.println(list);
+        loetudRead.close();
     }
 
     // meetod, mis valib juhusliku Onnitlus isendile sobivad luuletuse Onnitluste listist.

@@ -1,7 +1,6 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+// see klass on luuletuse faili salvestamiseks
+
+import java.io.*;
 
 public class FailiSalvestamine {
     public static void salvestaFaili(String string){
@@ -18,8 +17,9 @@ public class FailiSalvestamine {
                 bw.write(string);
                 System.out.println("Luuletus on kirjutatud faili luuletus.txt");
 
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("Kirjutamine ei õnnestunud! Proovi programmi uuesti!");
+                System.exit(1);
             }
             finally
             {
