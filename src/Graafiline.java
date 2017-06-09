@@ -1,5 +1,11 @@
 
 
+// Programm aitab õnnitluskaarti koostada, pakkudes sobivaid luuletusi.
+//Valida saab, kas õnnitletav on laps või täiskasvanu, sõber või kolleeg, mees või naine.
+//Luuletus valitakse sisestatud parameetritele vastavate luuletuste seast.
+// Luuletused loetakse sisse failist ja soovi korral saab väljavalitud luuletuse salvestada eraldi faili.
+// Autorid: Kadri Tooming ja Eve Tõnisson
+
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -17,6 +23,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
 
 
 public class Graafiline extends Application {
@@ -181,9 +189,12 @@ public class Graafiline extends Application {
 
 
                     try {
-                        Onnitlused.salvestaLuuletus("katse.txt", onnitlus1);  //loeb failist kõik read sisse.
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        Onnitlused.salvestaLuuletus("katse.txt", onnitlus1);  //loeb failist "katse.txt" kõik read sisse.
+                    } catch (FileNotFoundException e) {
+                        System.out.println("Luuletuste faili ei leitud õigest kaustast. Kopeeri luuletuste fail kausta ja proovi programmi uuesti!");
+                        System.exit(1);
+                    } catch (Exception e){
+                        System.exit(1);
                     }
 
                     String luuletus = Onnitlused.leiasobivLuuletus(onnitlus1); // leiab sobivate seast juhusliku luuletuse
@@ -246,23 +257,6 @@ public class Graafiline extends Application {
             @Override
             public void handle(ActionEvent e) {
                 name.clear();
-                //taiskasvanuvoilaps.clear();
-                //taiskasvanuvoilaps.getItems().clear();
-               // taiskasvanuvoilaps.setItems(FXCollections.observableArrayList(
-                 //       "laps",
-                //        "täiskasvanu"
-               // ));
-                //kolleeg.setItems(FXCollections.observableArrayList(
-               //         "kolleeg",
-              //          "sõber"
-               // ));
-              //  meesvoinaine.setItems(FXCollections.observableArrayList(
-               //         "mees",
-             //           "naine"
-               //hf ));
-
-                //kolleeg.clear();
-                //meesvoinaine.clear();
                 onnitlejad.clear();
                 label.setText(null);
 
