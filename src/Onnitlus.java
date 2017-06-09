@@ -35,17 +35,7 @@ public class Onnitlus {
         return onnitleja;
     }
 
-    @Override
-    public String toString() {
-        return "Õnnitlus " +
-                "nimi= " + nimi + '\'' +
-                ", vanus= " + vanus + '\'' +
-                ", kolleegSober= " + kolleegSober + '\'' +
-                ", sugu= " + sugu + '\'' +
-                ", onnitleja " + onnitleja + '\'';
 
-
-    }
 
 }
 

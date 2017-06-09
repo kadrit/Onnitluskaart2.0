@@ -31,13 +31,13 @@ public class Graafiline extends Application {
     public void start(Stage primaryStage)  {
         BorderPane piiriPaan = new BorderPane();
         HBox hbox = new HBox();
-        hbox.setPadding(new Insets(20, 20, 20, 20)); //vahe HBoxi servadest
+        hbox.setPadding(new Insets(20, 20, 20, 20));
         //hbox.setSpacing(10); //vahe kahe nupu vahel
         hbox.setStyle("-fx-background-color: #336699;");
         Text tekst = new Text ("Õnnitluskaart");
         tekst.setFont(Font.font("Gambria", 35));
         tekst.setFill(Color.SNOW);
-        hbox.alignmentProperty().setValue(Pos.CENTER); //Hboxil olev tekst paigutatakse keskele
+        hbox.alignmentProperty().setValue(Pos.CENTER);
         hbox.getChildren().add(tekst);
 
 
@@ -49,7 +49,7 @@ public class Graafiline extends Application {
         grid2.setHgap(5);
 
         piiriPaan.setTop(hbox); //Sinine kast pealkirja jaoks
-        piiriPaan.setLeft(grid); // Kasutajalt sisendi saamise kast
+        piiriPaan.setLeft(grid); // Kasutajalt sisendi saamise väljade kast
         piiriPaan.setRight(grid2); //koht luuletuse väljatrükkimiseks
 
 //loob konteineri
@@ -77,8 +77,7 @@ public class Graafiline extends Application {
                 "laps",
                 "täiskasvanu"
         ));
-        //TextField taiskasvanuvoilaps = new TextField();
-        //taiskasvanuvoilaps.setPromptText("laps või täiskasvanu");
+
         taiskasvanuvoilaps.getSelectionModel().selectFirst();
         GridPane.setConstraints(taiskasvanuvoilaps, 0, 6);
         grid.getChildren().add(taiskasvanuvoilaps);
@@ -98,15 +97,14 @@ public class Graafiline extends Application {
                 "kolleeg"
         ));
         kolleeg.getSelectionModel().selectFirst();
-        //final TextField kolleeg = new TextField();
-        //kolleeg.setPromptText("sõber või kolleeg");
+
         GridPane.setConstraints(kolleeg, 0, 8);
         grid.getChildren().add(kolleeg);
 
         final Label seosekast = new Label();
         GridPane.setConstraints(seosekast, 0, 7);
         GridPane.setColumnSpan(seosekast, 1);
-        seosekast.setText("Kas sõber või kolleeg?");
+        seosekast.setText("Sõber või kolleeg?");
         grid.getChildren().add(seosekast);
 
         //Naine/mees
@@ -164,24 +162,23 @@ public class Graafiline extends Application {
             public void handle(ActionEvent event) {
                 String onnitleja = String.valueOf(onnitlejad.getText());
                 String nimi = String.valueOf(name.getText());
-                //String vanus = String.valueOf(taiskasvanuvoilaps.getText());
+
                 String vanus = taiskasvanuvoilaps.getValue().toString();
                 String kolleegSober = kolleeg.getValue().toString();
                 if (vanus.equals("laps")) {         //kui laps, siis on sõber.
                     kolleegSober = "sõber";
                 }
                 String sugu = meesvoinaine.getValue().toString();
-                //String kolleegSober = String.valueOf(kolleeg.getText());
-                // String sugu = String.valueOf(meesvoinaine.getText());
+
 
                 if(onnitleja.isEmpty() || nimi.isEmpty() ){
-                    label.setText("Te ei sisestanud kõiki andmeid!");
+                    label.setText("Sa ei sisestanud kõiki andmeid!");
                 } else{
 
 
                     //selliselt saab kätte ühe sisestuse parameetrid
                     Onnitlus onnitlus1 = new Onnitlus(nimi, vanus, kolleegSober, sugu, onnitleja);
-                    //System.out.println(onnitlus1); //katsetamiseks, kas muutujad on väärtustatud
+
 
                     try {
                         Onnitlused.salvestaLuuletus("katse.txt", onnitlus1);  //loeb failist kõik read sisse.
@@ -189,7 +186,7 @@ public class Graafiline extends Application {
                         e.printStackTrace();
                     }
 
-                    String luuletus = Onnitlused.leiasobivLuuletus(onnitlus1); // leiab luuletuse
+                    String luuletus = Onnitlused.leiasobivLuuletus(onnitlus1); // leiab sobivate seast juhusliku luuletuse
 
                     //väli pöördumiseks
                     String pöördumine = new String();
@@ -251,30 +248,31 @@ public class Graafiline extends Application {
                 name.clear();
                 //taiskasvanuvoilaps.clear();
                 //taiskasvanuvoilaps.getItems().clear();
-                taiskasvanuvoilaps.setItems(FXCollections.observableArrayList(
-                        "laps",
-                        "täiskasvanu"
-                ));
-                kolleeg.setItems(FXCollections.observableArrayList(
-                        "kolleeg",
-                        "sõber"
-                ));
-                meesvoinaine.setItems(FXCollections.observableArrayList(
-                        "mees",
-                        "naine"
-                ));
+               // taiskasvanuvoilaps.setItems(FXCollections.observableArrayList(
+                 //       "laps",
+                //        "täiskasvanu"
+               // ));
+                //kolleeg.setItems(FXCollections.observableArrayList(
+               //         "kolleeg",
+              //          "sõber"
+               // ));
+              //  meesvoinaine.setItems(FXCollections.observableArrayList(
+               //         "mees",
+             //           "naine"
+               //hf ));
 
                 //kolleeg.clear();
                 //meesvoinaine.clear();
                 onnitlejad.clear();
                 label.setText(null);
+
             }});
 
         //väli programmi tutvustava teksti jaoks
         final Label labelsissejuhatus = new Label();
         GridPane.setConstraints(labelsissejuhatus, 0, 0);
         GridPane.setColumnSpan(labelsissejuhatus, 2);
-        labelsissejuhatus.setText("Programm on mõeldud selleks, et aidata õnnitluskaarti koostada.\nKasutaja saab valida, kas õnnitletav on laps/täiskasvanu, sõber/kolleeg, mees/naine.\nLuuletus valitakse juhuslikult sisestatud parameetritele vastavate luuletuste seast");
+        labelsissejuhatus.setText("Programm aitab õnnitluskaarti koostada, pakkudes sobivaid luuletusi.\nVali, kas õnnitletav on laps või täiskasvanu, sõber või kolleeg, mees või naine.\nLuuletus valitakse sisestatud parameetritele vastavate luuletuste seast.");
         labelsissejuhatus.setFont(Font.font("Gambria", 12));
         grid.getChildren().add(labelsissejuhatus);
 
